@@ -17,14 +17,4 @@ Employee Management System using Spring Boot, Thymeleaf and MySQL database.
 - Thymeleaf
 - Eclipse
 
-# Details
 
-You can see details of how to make a blog with this code. (https://portfolio-satoruakiyama.vercel.app/blog/building-an-application-with-spring-boot)
-
-# Author
-
-Satoru Akiyama(https://portfolio-satoruakiyama.vercel.app)
-
-# License
-
-"Employee Management System using Spring Boot" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
