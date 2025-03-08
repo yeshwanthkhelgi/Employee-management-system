@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <title>Employee Management System</title>
     <!-- Materialize CSS -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        body.dark-mode { background-color: #000; color: white; }
+        .dark-mode .card-panel { background-color: #121212; }
+        .dark-mode .blue { background-color: #000 !important; }
+    </style>
 </head>
 <body class="grey lighten-4">
 
@@ -20,34 +24,62 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
                 <li><a href="/showNewEmployeeForm">Add Employee</a></li>
+                <li><a href="#" onclick="toggleDarkMode()">Dark Mode</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Search Bar -->
-        <form th:action="@{/search}" method="get" class="row">
-            <div class="input-field col s10">
-                <input type="text" id="searchQuery" name="query" placeholder="Search by Name or Email" required>
-            </div>
-            <div class="col s2">
+        <!-- Success & Error Messages -->
+        <div th:if="${successMessage}" class="card-panel green white-text center-align">
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div th:if="${errorMessage}" class="card-panel red white-text center-align">
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <!-- Search & Sort Section -->
+        <div class="row">
+            <form th:action="@{/search}" method="get" class="col s6">
+                <div class="input-field">
+                    <input type="text" id="searchQuery" name="query" placeholder="Search by Name or Email">
+                </div>
                 <button type="submit" class="btn waves-effect waves-light blue">
-                    <i class="material-icons">search</i>
+                    <i class="material-icons left">search</i>Search
                 </button>
+            </form>
+            
+            <!-- Sort Dropdown -->
+            <div class="input-field col s3">
+                <select id="sortOrder" onchange="sortTable()">
+                    <option value="" disabled selected>Sort By</option>
+                    <option value="0">First Name</option>
+                    <option value="1">Last Name</option>
+                    <option value="2">Email</option>
+                </select>
+                <label>Sort Employees</label>
             </div>
-        </form>
+
+            <!-- Export Button -->
+            <div class="col s3 right-align">
+                <a href="/export" class="btn waves-effect waves-light green">
+                    <i class="material-icons left">file_download</i>Export CSV
+                </a>
+            </div>
+        </div>
 
         <h3 class="center-align">Employee List</h3>
 
         <!-- Employee Table -->
         <div class="card-panel white z-depth-2" style="margin-top: 20px; padding: 20px;">
-            <table class="highlight responsive-table">
+            <table class="highlight responsive-table" id="employeeTable">
                 <thead class="blue white-text">
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th colspan="2" class="center-align">Actions</th>
                     </tr>
                 </thead>
@@ -56,6 +88,11 @@
                         <td th:text="${employee.firstName}"></td>
                         <td th:text="${employee.lastName}"></td>
                         <td th:text="${employee.email}"></td>
+                        <td>
+                            <span th:text="${employee.active} ? 'Active' : 'Inactive'" 
+                                  class="badge" th:classappend="${employee.active} ? 'green' : 'red'">
+                            </span>
+                        </td>
                         <td class="center-align">
                             <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}"
                                class="btn waves-effect waves-light green lighten-1">
@@ -71,8 +108,44 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <ul class="pagination center-align">
+                <li class="waves-effect"><a href="?page=1"><i class="material-icons">chevron_left</i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li class="waves-effect"><a href="?page=2">2</a></li>
+                <li class="waves-effect"><a href="?page=3">3</a></li>
+                <li class="waves-effect"><a href="?page=4"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
         </div>
     </div>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Sorting Table
+        function sortTable() {
+            let table = document.getElementById("employeeTable");
+            let rows = Array.from(table.rows).slice(1);
+            let columnIndex = document.getElementById("sortOrder").value;
+
+            rows.sort((rowA, rowB) => {
+                let cellA = rowA.cells[columnIndex].innerText.toLowerCase();
+                let cellB = rowB.cells[columnIndex].innerText.toLowerCase();
+                return cellA.localeCompare(cellB);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var elems = document.querySelectorAll("select");
+            M.FormSelect.init(elems);
+        });
+    </script>
 
 </body>
 </html>
