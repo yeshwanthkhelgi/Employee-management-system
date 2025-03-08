@@ -27,6 +27,10 @@ public class EmployeeService {
 		//		save employee data to database
 		employeeRepository.save(emp);
 	}
+	
+	public List<Employee> searchEmployees(String keyword) {
+        return employeeRepository.searchEmployees(keyword);
+    }
 
 	//	get employee by id
 	public Employee getEmployeeById(Long id) {
