@@ -1,11 +1,11 @@
-package com.satoruakiyama.employeemanagementsystem.repository;
+package com.yeshwanth.employeemanagementsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.satoruakiyama.employeemanagementsystem.domain.Employee;
+import com.yeshwanth.employeemanagementsystem.domain.Employee;
 import java.util.List;
 
 @Repository

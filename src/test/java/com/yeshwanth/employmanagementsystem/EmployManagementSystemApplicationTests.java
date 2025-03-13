@@ -1,4 +1,4 @@
-package com.satoruakiyama.employmanagementsystem;
+package com.yeshwanth.employmanagementsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,6 @@
-package com.satoruakiyama.employeemanagementsystem.controller;
+package com.yeshwanth.employeemanagementsystem.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.satoruakiyama.employeemanagementsystem.domain.Employee;
-import com.satoruakiyama.employeemanagementsystem.service.EmployeeService;
+import com.yeshwanth.employeemanagementsystem.domain.Employee;
+import com.yeshwanth.employeemanagementsystem.service.EmployeeService;
 
 @Controller // This means that this class is a Controller
 public class EmployeeController {
