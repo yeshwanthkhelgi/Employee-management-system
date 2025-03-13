@@ -1,4 +1,4 @@
-package com.satoruakiyama.employeemanagementsystem.domain;
+package com.yeshwanth.employeemanagementsystem.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
