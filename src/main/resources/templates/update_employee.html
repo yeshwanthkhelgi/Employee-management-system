@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Update Employee</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #74EBD5, #ACB6E5);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card-panel {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .card-panel:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn {
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .input-field label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .input-field input:focus {
+            border-bottom: 2px solid #4CAF50 !important;
+            box-shadow: 0 1px 0 0 #4CAF50 !important;
+        }
+
+        h4 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card-panel white">
+        <h4>Update Employee</h4>
+
+        <form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
+            
+            <!-- Hidden ID field -->
+            <input type="hidden" th:field="*{id}">
+
+            <!-- First Name -->
+            <div class="input-field">
+                <input id="firstName" type="text" th:field="*{firstName}" placeholder="Enter First Name" required>
+                <label for="firstName">First Name</label>
+            </div>
+
+            <!-- Last Name -->
+            <div class="input-field">
+                <input id="lastName" type="text" th:field="*{lastName}" placeholder="Enter Last Name" required>
+                <label for="lastName">Last Name</label>
+            </div>
+
+            <!-- Email -->
+            <div class="input-field">
+                <input id="email" type="email" th:field="*{email}" placeholder="Enter Email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <!-- Save Button -->
+            <div class="center-align">
+                <button type="submit" class="btn waves-effect waves-light blue">
+                    <i class="material-icons left">save</i>Update Employee
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
