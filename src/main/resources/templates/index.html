@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Management System</title>
+    <title>Employee and Payroll Management System</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
 
         .container {
             width: 90%;
-            max-width: 1100px;
+            max-width: 1200px;
         }
 
         .card {
@@ -77,6 +77,14 @@
         .btn-danger:hover {
             background-color: #dc3545;
         }
+
+        /* Navigation buttons */
+        .nav-btns {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 
@@ -84,51 +92,66 @@
 
 <div class="container">
     <div class="card">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="text-center m-0">Employee Management</h2>
-            <a href="/showNewEmployeeForm" class="btn btn-primary">
-                <i class="fas fa-user-plus"></i> Add Employee
+
+        <!-- Navigation Buttons -->
+        <div class="nav-btns">
+            <a th:href="@{/}" class="btn btn-primary me-2">
+                <i class="fas fa-users"></i> Employee Management
+            </a>
+            <a th:href="@{/payroll}" class="btn btn-success">
+                <i class="fas fa-money-bill-wave"></i> Payroll Management
             </a>
         </div>
 
-        <!-- Search Bar -->
-        <form th:action="@{/search}" method="get" class="search-bar">
-            <input type="text" name="query" placeholder="Search by Name or Email" required>
-            <button type="submit" class="btn btn-primary ms-2">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
+        <!-- Employee Management Section -->
+        <div id="employeeSection" class="section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-center m-0">Employee Management</h2>
+                <a href="/showNewEmployeeForm" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Add Employee
+                </a>
+            </div>
 
-        <!-- Employee List -->
-        <div class="table-responsive">
-            <table class="table table-hover table-striped">
-                <thead class="table-primary">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="employee : ${listEmployees}">
-                    <td th:text="${employee.firstName}"></td>
-                    <td th:text="${employee.lastName}"></td>
-                    <td th:text="${employee.email}"></td>
-                    <td>
-                        <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-success me-2">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="#" th:data-url="@{/deleteEmployee/{id}(id=${employee.id})}"
-                           class="btn btn-danger"
-                           onclick="confirmDelete(this)">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <!-- Search Bar -->
+            <form th:action="@{/search}" method="get" class="search-bar">
+                <input type="text" name="query" placeholder="Search by Name or Email" required>
+                <button type="submit" class="btn btn-primary ms-2">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <!-- Employee List -->
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-primary">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee : ${listEmployees}">
+                        <td th:text="${employee.firstName}"></td>
+                        <td th:text="${employee.lastName}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td>
+                            <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-success me-2">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" th:data-url="@{/deleteEmployee/{id}(id=${employee.id})}"
+                               class="btn btn-danger"
+                               onclick="confirmDelete(this)">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -139,6 +162,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // Confirmation for delete action
     function confirmDelete(element) {
         const url = element.getAttribute('data-url');
 

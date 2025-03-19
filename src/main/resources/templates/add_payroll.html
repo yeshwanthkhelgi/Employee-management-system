@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Payroll</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #90dffe, #38a3d1);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2 class="text-center mb-4">Add Payroll</h2>
+
+        <form th:action="@{/payroll/save}" method="post">
+            
+            <div class="mb-3">
+                <label for="employeeId" class="form-label">Employee ID</label>
+                <input type="number" id="employeeId" name="employeeId" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="baseSalary" class="form-label">Base Salary</label>
+                <input type="number" id="baseSalary" name="baseSalary" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="bonus" class="form-label">Bonus</label>
+                <input type="number" id="bonus" name="bonus" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="deductions" class="form-label">Deductions</label>
+                <input type="number" id="deductions" name="deductions" class="form-control" required>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Save Payroll
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
