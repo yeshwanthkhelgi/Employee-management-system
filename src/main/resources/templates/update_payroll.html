@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Payroll</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Update Payroll</h2>
+
+    <form th:action="@{/payroll/update}" method="post">
+        <input type="hidden" name="id" th:value="${payroll.id}">
+
+        <div class="mb-3">
+            <label for="employeeId" class="form-label">Employee ID</label>
+            <input type="text" class="form-control" id="employeeId" name="employeeId" 
+                   th:value="${payroll.employee.id}" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="baseSalary" class="form-label">Base Salary</label>
+            <input type="number" class="form-control" id="baseSalary" name="baseSalary" 
+                   th:value="${payroll.baseSalary}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="bonus" class="form-label">Bonus</label>
+            <input type="number" class="form-control" id="bonus" name="bonus" 
+                   th:value="${payroll.bonus}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="deductions" class="form-label">Deductions</label>
+            <input type="number" class="form-control" id="deductions" name="deductions" 
+                   th:value="${payroll.deductions}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Payroll</button>
+        <a th:href="@{/payroll}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
